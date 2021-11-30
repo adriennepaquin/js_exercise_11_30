@@ -1,3 +1,8 @@
+// consts for exercises 4 & 5
+const logPost = document.querySelector('#post-container')
+const allActors = document.querySelector('#actor-container')
+const actorArray = []
+
 // JS Exercises:
 
 // 1)
@@ -40,7 +45,7 @@ function movieActors(obj, actor){
 
 // 5)
 
-const logPost = document.querySelector('#post-container')
+
 
 fetchPosts()
 
