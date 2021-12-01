@@ -1,23 +1,25 @@
 // consts for exercises 4 & 5
 const logPost = document.querySelector('#post-container')
 const allActors = document.querySelector('#actor-container')
-const actorArray = []
 
 // JS Exercises:
 
-// 1)
+// 1) function to square an array of integers
+
 function square(arr){
     let newArr = arr.map((int) => int * int)
     return newArr
 }
 
-// 2)
+// 2) function to sum an array of object values
+
 function countMe(arr){
     let sum = arr.map(item => item.count).reduce((prev, curr) => prev + curr, 0)
     return sum
 }
 
-// 3)
+// 3) function to add names to movies' actor lists (added extra data for testing)
+
 const movies = {
     theGoonies : {
       actors: [
@@ -33,19 +35,49 @@ const movies = {
         "Carrie-Anne Moss",
       ],
     },
+
+    theSoundOfMusic : {
+        actors: [
+          "Julie Andrews",
+          "Christopher Plummer",
+        ],
+      },
    }
 
-//    actor gets added to every movie if not already present ***
 function movieActors(obj, actor){
-    Object.entries(obj).forEach(([key, value]) => console.log(value.actors))
+    let newMovies = JSON.parse(JSON.stringify(obj))
+    Object.entries(newMovies).forEach(([key, value]) => {
+        (Object.values(value.actors).includes(actor)) ? null : value.actors.push(actor)
+    })
+    return newMovies
 }
 
-// 4)
+// 4) render list of actors from movie object in alphabetical order with no duplicates
 
+filterActors(movies)
 
-// 5)
+function filterActors(obj){
+    let allActors = []
+    Object.entries(obj).forEach(([key, value]) => {
+        allActors.push(...value.actors)
+    })
+    let actorArray = [...new Set(allActors.sort())]
+    renderActors(actorArray)
+}
 
+function renderActors(arr){
+    let actorUl = document.createElement('ul')
 
+    arr.forEach(actor => {
+        let name = document.createElement('ul')
+        name.textContent = actor
+        actorUl.append(name)
+    })
+
+    allActors.append(actorUl)
+}
+
+// 5) fetch posts from API, return a specific post which is rendered to the DOM
 
 fetchPosts()
 
